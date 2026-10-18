@@ -31,7 +31,9 @@ public final class QueryClient {
     private QueryClient() {}
 
     public static void register() {
-        FMLCommonHandler.instance().bus().register(new Ticker());
+        FMLCommonHandler.instance()
+            .bus()
+            .register(new Ticker());
     }
 
     public static void request(ICommandSender sender, String target, Chapter chapter, Opts opts) {
@@ -62,7 +64,8 @@ public final class QueryClient {
 
         IntList expired = new IntArrayList();
         for (Int2ObjectMap.Entry<Pending> entry : PENDING.int2ObjectEntrySet()) {
-            if (now - entry.getValue().started() > TIMEOUT_MS) {
+            if (now - entry.getValue()
+                .started() > TIMEOUT_MS) {
                 expired.add(entry.getIntKey());
             }
         }
