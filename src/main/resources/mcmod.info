@@ -3,7 +3,7 @@
 	"modList": [{
 		"modid": "${modId}",
 		"name": "${modName}",
-		"description": "An example mod for Minecraft 1.7.10 with Forge focused on a stable setup.",
+		"description": "A utility mod. Ships a subcommand framework under /ru and a Thaumcraft research progress report; more utilities are added as features over time.",
 		"version": "${modVersion}",
 		"mcversion": "${minecraftVersion}",
 		"url": "https://github.com/vcwdfca/RandomUtil",
@@ -13,7 +13,7 @@
 		"logoFile": "",
 		"screenshots": [],
 		"parent": "",
-		"requiredMods": [],
+		"requiredMods": ["thaumcraft"],
 		"dependencies": [],
 		"dependants": [],
 		"useDependencyInformation": false

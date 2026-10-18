@@ -1,27 +1,22 @@
 package com.vcwdfca.randomutil;
 
+import com.vcwdfca.randomutil.feature.Features;
+import com.vcwdfca.randomutil.network.RUNetwork;
+import com.vcwdfca.randomutil.util.ServerTickQueue;
+
 import cpw.mods.fml.common.event.FMLInitializationEvent;
-import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
-import cpw.mods.fml.common.event.FMLServerStartingEvent;
 
 public class CommonProxy {
 
-    // preInit "Run before anything else. Read your config, create blocks, items, etc, and register them with the
-    // GameRegistry." (Remove if not needed)
     public void preInit(FMLPreInitializationEvent event) {
         Config.synchronizeConfiguration(event.getSuggestedConfigurationFile());
-
-        RandomUtil.LOG.info(Config.greeting);
-        RandomUtil.LOG.info("I am RandomUtil at version " + Tags.VERSION);
+        RandomUtil.LOG.info("RandomUtil " + Tags.VERSION + " loading");
     }
 
-    // load "Do your mod setup. Build whatever data structures you care about. Register recipes." (Remove if not needed)
-    public void init(FMLInitializationEvent event) {}
-
-    // postInit "Handle interaction with other mods, complete your setup based on this." (Remove if not needed)
-    public void postInit(FMLPostInitializationEvent event) {}
-
-    // register server commands in this event handler (Remove if not needed)
-    public void serverStarting(FMLServerStartingEvent event) {}
+    public void init(FMLInitializationEvent event) {
+        RUNetwork.init();
+        new ServerTickQueue().register();
+        Features.init();
+    }
 }
