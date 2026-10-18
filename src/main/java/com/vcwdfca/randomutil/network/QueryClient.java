@@ -31,9 +31,7 @@ public final class QueryClient {
     private QueryClient() {}
 
     public static void register() {
-        FMLCommonHandler.instance()
-            .bus()
-            .register(new Ticker());
+        FMLCommonHandler.instance().bus().register(new Ticker());
     }
 
     public static void request(ICommandSender sender, String target, Chapter chapter, Opts opts) {
@@ -57,6 +55,26 @@ public final class QueryClient {
         ResearchRenderer.render(pending.sender(), response.snapshot(), pending.opts());
     }
 
+    static void expire(long now) {
+        if (PENDING.isEmpty()) {
+            return;
+        }
+
+        IntList expired = new IntArrayList();
+        for (Int2ObjectMap.Entry<Pending> entry : PENDING.int2ObjectEntrySet()) {
+            if (now - entry.getValue().started() > TIMEOUT_MS) {
+                expired.add(entry.getIntKey());
+            }
+        }
+
+        for (int i = 0; i < expired.size(); i++) {
+            Pending pending = PENDING.remove(expired.getInt(i));
+            if (pending != null) {
+                Chat.error(pending.sender(), Chat.tr("randomutil.thaum.msg.timeout"));
+            }
+        }
+    }
+
     private static String statusMessage(byte status, String target) {
         return switch (status) {
             case PacketResearchResponse.DENIED -> Chat.tr("randomutil.thaum.msg.queryDenied");
@@ -70,28 +88,12 @@ public final class QueryClient {
 
     private record Pending(ICommandSender sender, String target, Chapter chapter, Opts opts, long started) {}
 
-    private static final class Ticker {
+    public static final class Ticker {
 
         @SubscribeEvent
         public void onTick(TickEvent.ClientTickEvent event) {
-            if (event.phase != TickEvent.Phase.END || PENDING.isEmpty()) {
-                return;
-            }
-
-            long now = System.currentTimeMillis();
-            IntList expired = new IntArrayList();
-            for (Int2ObjectMap.Entry<Pending> entry : PENDING.int2ObjectEntrySet()) {
-                if (now - entry.getValue()
-                    .started() > TIMEOUT_MS) {
-                    expired.add(entry.getIntKey());
-                }
-            }
-
-            for (int i = 0; i < expired.size(); i++) {
-                Pending pending = PENDING.remove(expired.getInt(i));
-                if (pending != null) {
-                    Chat.error(pending.sender(), Chat.tr("randomutil.thaum.msg.timeout"));
-                }
+            if (event.phase == TickEvent.Phase.END) {
+                QueryClient.expire(System.currentTimeMillis());
             }
         }
     }
