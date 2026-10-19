@@ -5,10 +5,11 @@ import java.util.UUID;
 import net.minecraft.entity.player.EntityPlayerMP;
 
 import com.vcwdfca.randomutil.Config;
-import com.vcwdfca.randomutil.feature.thaum.Chapter;
-import com.vcwdfca.randomutil.feature.thaum.ResearchLookup;
-import com.vcwdfca.randomutil.feature.thaum.ResearchSnapshot;
-import com.vcwdfca.randomutil.feature.thaum.ThaumFacade;
+import com.vcwdfca.randomutil.feature.tc.Chapter;
+import com.vcwdfca.randomutil.feature.tc.ResearchLookup;
+import com.vcwdfca.randomutil.feature.tc.ResearchSnapshot;
+import com.vcwdfca.randomutil.feature.tc.TCFacade;
+import com.vcwdfca.randomutil.util.Mods;
 
 import it.unimi.dsi.fastutil.objects.Object2LongOpenHashMap;
 import it.unimi.dsi.fastutil.objects.ObjectList;
@@ -29,7 +30,7 @@ public final class QueryServer {
         }
 
         int id = request.id();
-        if (!Config.Thaum.enableQuery) {
+        if (!Config.TC.enableQuery) {
             reply(asker, id, PacketResearchResponse.DISABLED);
             return;
         }
@@ -40,18 +41,18 @@ public final class QueryServer {
         boolean isSelf = target.equalsIgnoreCase(self);
 
         if (!isSelf) {
-            if (!Config.Thaum.allowQueryOthers) {
+            if (!Config.TC.allowQueryOthers) {
                 reply(asker, id, PacketResearchResponse.DENIED);
                 return;
             }
 
             if (!ResearchLookup.isOnline(target)) {
-                if (!Config.Thaum.allowOfflineQuery) {
+                if (!Config.TC.allowOfflineQuery) {
                     reply(asker, id, PacketResearchResponse.NO_DATA);
                     return;
                 }
 
-                if (Config.Thaum.requireOpForOffline && !asker.canCommandSenderUseCommand(2, PERMISSION)) {
+                if (Config.TC.requireOpForOffline && !asker.canCommandSenderUseCommand(2, PERMISSION)) {
                     reply(asker, id, PacketResearchResponse.DENIED);
                     return;
                 }
@@ -63,7 +64,7 @@ public final class QueryServer {
             }
         }
 
-        if (!ThaumFacade.available()) {
+        if (!Mods.Thaumcraft.available()) {
             reply(asker, id, PacketResearchResponse.NO_THAUMCRAFT);
             return;
         }
@@ -75,7 +76,7 @@ public final class QueryServer {
         }
 
         Chapter chapter = Chapter.of(request.chapter());
-        ResearchSnapshot snapshot = ThaumFacade
+        ResearchSnapshot snapshot = TCFacade
             .snapshot(completed, chapter, target, request.includeHidden(), request.onlyAvailable());
         RUNetwork.sendTo(asker, new PacketResearchResponse(id, PacketResearchResponse.OK, snapshot));
     }

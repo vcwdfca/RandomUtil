@@ -4,7 +4,9 @@ import cpw.mods.fml.common.Loader;
 
 public enum Mods {
 
-    Thaumcraft;
+    Thaumcraft,
+    NotEnoughItems,
+    appliedenergistics2;
 
     public boolean available() {
         return Loader.isModLoaded(this.name());

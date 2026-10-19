@@ -6,8 +6,8 @@ import net.minecraft.command.ICommandSender;
 
 import com.vcwdfca.randomutil.command.Chat;
 import com.vcwdfca.randomutil.command.Opts;
-import com.vcwdfca.randomutil.feature.thaum.Chapter;
-import com.vcwdfca.randomutil.feature.thaum.ResearchRenderer;
+import com.vcwdfca.randomutil.feature.tc.Chapter;
+import com.vcwdfca.randomutil.feature.tc.ResearchRenderer;
 
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;

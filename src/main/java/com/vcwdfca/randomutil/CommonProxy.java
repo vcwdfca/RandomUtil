@@ -11,6 +11,7 @@ public class CommonProxy {
 
     public void preInit(FMLPreInitializationEvent event) {
         Config.synchronizeConfiguration(event.getSuggestedConfigurationFile());
+        Features.discover(event.getAsmData());
         RandomUtil.LOG.info("RandomUtil " + Tags.VERSION + " loading");
     }
 

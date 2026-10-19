@@ -18,7 +18,10 @@ public final class RUNetwork {
 
     private RUNetwork() {}
 
-    public static void init() {}
+    public static void init() {
+        registerMessage(PacketResearchRequest.Handler.class, PacketResearchRequest.class, Side.SERVER);
+        registerMessage(PacketResearchResponse.Handler.class, PacketResearchResponse.class, Side.CLIENT);
+    }
 
     public static <REQUEST extends IMessage, REPLY extends IMessage> void registerMessage(
         Class<? extends IMessageHandler<REQUEST, REPLY>> handler, Class<REQUEST> message, Side side) {

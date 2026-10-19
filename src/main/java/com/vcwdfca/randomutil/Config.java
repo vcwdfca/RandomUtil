@@ -16,14 +16,15 @@ public final class Config {
         debug = configuration
             .getBoolean("debug", "general", false, "Print extra diagnostics to the log while the game runs.");
 
-        Thaum.load(configuration);
+        TC.load(configuration);
+        NEI.load(configuration);
 
         if (configuration.hasChanged()) {
             configuration.save();
         }
     }
 
-    public static final class Thaum {
+    public static final class TC {
 
         public static boolean enableQuery = true;
 
@@ -33,7 +34,7 @@ public final class Config {
 
         public static boolean requireOpForOffline = true;
 
-        private Thaum() {}
+        private TC() {}
 
         static void load(Configuration configuration) {
             enableQuery = configuration.getBoolean(
@@ -56,6 +57,22 @@ public final class Config {
                 "thaum",
                 requireOpForOffline,
                 "Only permission level 2 or higher may query offline players.");
+        }
+    }
+
+    public static final class NEI {
+
+        public static boolean enableTunnelPatternBookmark = true;
+
+        private NEI() {}
+
+        static void load(Configuration configuration) {
+            enableTunnelPatternBookmark = configuration.getBoolean(
+                "enableTunnelPatternBookmark",
+                "nei",
+                enableTunnelPatternBookmark,
+                "Bookmark AE2 patterns (including tunnel patterns) from the NEI bookmark key and drop them "
+                    + "straight into the pattern terminal input grid with a quantity of one.");
         }
     }
 }

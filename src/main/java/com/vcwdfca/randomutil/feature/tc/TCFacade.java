@@ -1,17 +1,11 @@
-package com.vcwdfca.randomutil.feature.thaum;
-
-import com.vcwdfca.randomutil.util.Mods;
+package com.vcwdfca.randomutil.feature.tc;
 
 import it.unimi.dsi.fastutil.objects.ObjectCollection;
 import it.unimi.dsi.fastutil.objects.ObjectList;
 
-public final class ThaumFacade {
+public final class TCFacade {
 
-    private ThaumFacade() {}
-
-    public static boolean available() {
-        return Mods.Thaumcraft.available();
-    }
+    private TCFacade() {}
 
     public static Chapter resolveChapter(String input) {
         return Chapters.resolve(input);

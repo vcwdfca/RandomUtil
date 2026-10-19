@@ -1,6 +1,6 @@
 package com.vcwdfca.randomutil.network;
 
-import com.vcwdfca.randomutil.feature.thaum.ResearchSnapshot;
+import com.vcwdfca.randomutil.feature.tc.ResearchSnapshot;
 
 import cpw.mods.fml.common.network.ByteBufUtils;
 import cpw.mods.fml.common.network.simpleimpl.IMessage;

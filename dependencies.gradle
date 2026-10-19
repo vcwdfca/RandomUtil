@@ -46,5 +46,18 @@ dependencies {
     compileOnly("javax.xml.bind:jaxb-api:2.3.1")
     compileOnly("org.jetbrains:annotations:26.0.1")
 
+    devOnlyNonPublishable("com.github.GTNewHorizons:Applied-Energistics-2-Unofficial:rv3-beta-1080-GTNH:dev") {
+        transitive = false
+    }
+    devOnlyNonPublishable("com.github.GTNewHorizons:NotEnoughItems:2.8.155-GTNH:dev") {
+        transitive = false
+    }
+    devOnlyNonPublishable("com.github.GTNewHorizons:CodeChickenCore:1.4.21:dev") {
+        transitive = false
+    }
+    devOnlyNonPublishable("com.github.GTNewHorizons:GTNHLib:0.11.52:dev") {
+        transitive = false
+    }
+
     testImplementation("junit:junit:4.13.2")
 }

@@ -1,4 +1,4 @@
-package com.vcwdfca.randomutil.feature.thaum;
+package com.vcwdfca.randomutil.feature.tc;
 
 import net.minecraft.util.StatCollector;
 

@@ -1,4 +1,4 @@
-package com.vcwdfca.randomutil.feature.thaum;
+package com.vcwdfca.randomutil.feature.tc;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.command.ICommandSender;
@@ -8,12 +8,15 @@ import com.vcwdfca.randomutil.command.Chat;
 import com.vcwdfca.randomutil.command.Opts;
 import com.vcwdfca.randomutil.command.SubCommand;
 import com.vcwdfca.randomutil.network.QueryClient;
+import com.vcwdfca.randomutil.util.Mods;
 
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import it.unimi.dsi.fastutil.objects.ObjectList;
 import it.unimi.dsi.fastutil.objects.ObjectLists;
 
-public final class ThaumResearchCommand implements SubCommand {
+public final class TCResearchCommand implements SubCommand {
+
+    public static final TCResearchCommand INSTANCE = new TCResearchCommand();
 
     @Override
     public String name() {
@@ -47,18 +50,18 @@ public final class ThaumResearchCommand implements SubCommand {
             return;
         }
 
-        if (!ThaumFacade.available()) {
+        if (!Mods.Thaumcraft.available()) {
             Chat.error(sender, Chat.tr("randomutil.thaum.msg.noThaumcraft"));
             return;
         }
 
         String chapterInput = args.size() >= 2 ? args.get(1) : "all";
-        Chapter chapter = ThaumFacade.resolveChapter(chapterInput);
+        Chapter chapter = TCFacade.resolveChapter(chapterInput);
         if (chapter == null) {
             Chat.error(sender, Chat.tr("randomutil.thaum.msg.unknownChapter", chapterInput));
             Chat.send(
                 sender,
-                Chat.tr("randomutil.thaum.msg.chapters", String.join(", ", ThaumFacade.chapterSuggestions())));
+                Chat.tr("randomutil.thaum.msg.chapters", String.join(", ", TCFacade.chapterSuggestions())));
             return;
         }
 
@@ -76,7 +79,7 @@ public final class ThaumResearchCommand implements SubCommand {
             return;
         }
 
-        ResearchSnapshot snapshot = ThaumFacade
+        ResearchSnapshot snapshot = TCFacade
             .snapshot(completed, chapter, self, opts.includeHidden(), opts.onlyAvailable());
         ResearchRenderer.render(sender, snapshot, opts);
     }
@@ -85,7 +88,7 @@ public final class ThaumResearchCommand implements SubCommand {
     public ObjectList<String> suggest(ICommandSender sender, ObjectList<String> args) {
         return switch (args.size()) {
             case 1 -> ObjectLists.singleton("research");
-            case 2 -> ThaumFacade.available() ? ThaumFacade.chapterSuggestions() : ObjectLists.emptyList();
+            case 2 -> Mods.Thaumcraft.available() ? TCFacade.chapterSuggestions() : ObjectLists.emptyList();
             case 3 -> playerNames();
             default -> ObjectLists.emptyList();
         };

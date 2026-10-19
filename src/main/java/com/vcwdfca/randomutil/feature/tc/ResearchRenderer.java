@@ -1,4 +1,4 @@
-package com.vcwdfca.randomutil.feature.thaum;
+package com.vcwdfca.randomutil.feature.tc;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -32,7 +32,7 @@ public final class ResearchRenderer {
             Chat.tr(
                 "randomutil.thaum.research.header",
                 snapshot.target(),
-                ThaumFacade.chapterName(snapshot.chapterKey())));
+                TCFacade.chapterName(snapshot.chapterKey())));
         Chat.send(
             target,
             Chat.tr("randomutil.thaum.research.summary", snapshot.missing(), snapshot.total(), snapshot.done()));
