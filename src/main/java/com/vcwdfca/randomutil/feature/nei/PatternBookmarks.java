@@ -1,6 +1,6 @@
 package com.vcwdfca.randomutil.feature.nei;
 
-import java.awt.*;
+import java.awt.Point;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
