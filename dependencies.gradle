@@ -45,6 +45,8 @@ dependencies {
     compileOnlyApi("thaumcraft:Thaumcraft:1.7.10-4.2.3.5:dev")
     runtimeOnlyNonPublishable("thaumcraft:Thaumcraft:1.7.10-4.2.3.5:dev")
 
+    compileOnly(files("libs/ae2thing-1.2.15-pre7-dev.jar"))
+
     compileOnly("javax.xml.bind:jaxb-api:2.3.1")
     compileOnly("org.jetbrains:annotations:26.0.1")
 

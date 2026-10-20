@@ -33,16 +33,16 @@ public final class PatternBookmarkKeyHandler implements IContainerInputHandler {
             return false;
         }
 
-        if (PatternBookmarks.isBookmarked(hovered)) {
-            return false;
-        }
-
-        if (!PatternBookmarks.add(hovered)) {
+        final boolean wasBookmarked = PatternBookmarks.isBookmarked(hovered);
+        if (!PatternBookmarks.toggle(hovered)) {
             return false;
         }
 
         if (RandomUtil.debugEnabled()) {
-            RandomUtil.LOG.info("Bookmarked tunnel pattern {}", AEClientUtil.getTunnelUuid(hovered));
+            RandomUtil.LOG.info(
+                "{} tunnel pattern {}",
+                wasBookmarked ? "Unbookmarked" : "Bookmarked",
+                AEClientUtil.getTunnelUuid(hovered));
         }
         return true;
     }
