@@ -5,11 +5,9 @@ import org.jetbrains.annotations.NotNull;
 import com.gtnewhorizon.gtnhmixins.builders.IMixins;
 import com.gtnewhorizon.gtnhmixins.builders.MixinBuilder;
 
-@SuppressWarnings("unused")
 public enum Mixins implements IMixins {
 
-    GT_LES(new MixinBuilder().setPhase(Phase.LATE)
-        .addCommonMixins("MixinLES"));
+    GT_LES(new MixinBuilder().addCommonMixins("MixinLES"));
 
     private final MixinBuilder builder;
 
